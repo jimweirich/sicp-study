@@ -1,14 +1,26 @@
 h1. Worked Examples for SICP
 
-This is my worked examples for the SICP book.  The work is divided up
-into weekly studies, based around the video lectures.
+This is my worked examples for the "SICP
+book":http://mitpress.mit.edu/sicp/full-text/book/book.html.  The work
+is divided up into weekly studies, based around the "video
+lectures":http://www.archive.org/details/mit_ocw_sicp.
 
-h2. Week 1
+You will find the worked examples in Scheme in the scheme directory of
+this project.  Each week's work will be its own directory.  Examples
+will be named +ex._x_._y_.scm+ (where _x.y_ is the exercise number).
+The book_code.scm will contain any interesting code snippets from the
+book in the assigned reading for that week.
+
+Have fun.
+
+h2. Schedule
+
+h3. Week 1
 
 * SICP through section 1.1.8
 * Lecture 1a
 * Exercises 1.1 - 1.8
 
-h2. Week 2
+h3. Week 2
 
 TBD
