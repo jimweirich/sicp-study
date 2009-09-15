@@ -1,0 +1,14 @@
+h1. Worked Examples for SICP
+
+This is my worked examples for the SICP book.  The work is divided up
+into weekly studies, based around the video lectures.
+
+h2. Week 1
+
+* SICP through section 1.1.8
+* Lecture 1a
+* Exercises 1.1 - 1.8
+
+h2. Week 2
+
+TBD
