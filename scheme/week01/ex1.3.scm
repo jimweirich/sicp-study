@@ -11,10 +11,25 @@
         (else
          (sum-of-squares a b)) ))
 
-(define (is expected actual)
-  (if (not (equal expected actual))
-      (error "Ooops")) )
+;;; ------------------------------------------------------------------
 
-(and  (equal? 41 (sum-of-two-largest-squares 3 4 5))
-      (equal? 41 (sum-of-two-largest-squares 4 3 5))
-      (equal? 41 (sum-of-two-largest-squares 4 5 3)))
+(load "../testing.scm")
+
+(define (test-square)
+  (assert-equal 1 (square 1))
+  (assert-equal 4 (square 2))
+  (assert-equal 9 (square 3))
+  (assert-equal 256 (square 16)))
+
+(define (test-sum-of-squares)
+  (assert-equal 25 (sum-of-squares 3 4)))
+
+(define (test-sum-of-two-largest-squares)
+  (assert-equal 41 (sum-of-two-largest-squares 3 4 5))
+  (assert-equal 41 (sum-of-two-largest-squares 4 3 5))
+  (assert-equal 41 (sum-of-two-largest-squares 4 5 3)))
+
+(define (test)
+  (test-square)
+  (test-sum-of-squares)
+  (test-sum-of-two-largest-squares))

@@ -17,3 +17,10 @@
         (try (improve guess x))))
 
   (try 1.0))
+
+;;; ------------------------------------------------------------------
+
+(load "../testing.scm")
+
+(define (test)
+  (assert-in-delta 3 (cbrt 27) 0.0001))
