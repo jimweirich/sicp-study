@@ -20,7 +20,13 @@
 
 ;;; ------------------------------------------------------------------
 
-(load "../testing.scm")
+(let ((testing-file
+       (get-environment-variable "TESTING_SCM")))
+  (if testing-file
+      (begin
+        (load testing-file)
 
-(define (test)
-  (assert-in-delta 3 (cbrt 27) 0.0001))
+        (test-case "cube root"
+                   (assert-in-delta 3 (cbrt 27) 0.0001))
+
+        (tests))))

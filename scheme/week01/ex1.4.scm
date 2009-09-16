@@ -9,9 +9,25 @@
 
 ;;; ------------------------------------------------------------------
 
-(load "../testing.scm")
+(let ((testing-file
+       (get-environment-variable "TESTING_SCM")))
+  (if testing-file
+      (begin
+        (load testing-file)
 
-(define (test)
-  (assert-equal 5 (a-plus-abs-b 2 3)))
+        (test-case "test result"
+                    (assert-equal 5 (a-plus-abs-b 2 3)))
+        
+        (tests))))
 
-(test)
+(let ((testing-file
+       (get-environment-variable "TESTING_SCM")))
+  (if testing-file
+      (begin
+        (load testing-file)
+
+        (test-case "something"
+                   (assert-equal 0 0)
+                   (assert-not-equal 1 2))
+        
+        (tests))))
