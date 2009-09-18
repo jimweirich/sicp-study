@@ -30,15 +30,3 @@
 
   (try 1.0))
 
-;;; ------------------------------------------------------------------
-
-(let ((testing-file
-       (get-environment-variable "TESTING_SCM")))
-  (if testing-file
-      (begin
-        (load testing-file)
-
-        (test-case "cube root"
-                   (assert-in-delta 3 (cbrt 27) 0.0001))
-
-        (tests))))

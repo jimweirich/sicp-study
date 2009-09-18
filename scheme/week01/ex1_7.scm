@@ -35,7 +35,7 @@
     (/ (+ x y) 2))
 
   (define (improve guess x)
-    (brkpt) (average guess (/ x guess)))
+    (average guess (/ x guess)))
 
   ;; New version of good-enough? that is relative to the size of the
   ;; guess.
