@@ -35,7 +35,7 @@
     (/ (+ x y) 2))
 
   (define (improve guess x)
-    (average guess (/ x guess)))
+    (brkpt) (average guess (/ x guess)))
 
   ;; New version of good-enough? that is relative to the size of the
   ;; guess.
@@ -50,17 +50,3 @@
 
   (try 1.0))
 
-
-;;; ------------------------------------------------------------------
-
-(let ((testing-file
-       (get-environment-variable "TESTING_SCM")))
-  (if testing-file
-      (begin
-        (load testing-file)
-
-        (test-case "new good enough"
-                   (assert-in-delta 2 (sqrt 4) 0.000001)
-                   (assert-in-delta 4 (sqrt 16) 0.000001)
-                   (assert-in-delta 20000 (sqrt 400000000) (/ 20000 1000000)) )
-        (tests))))
