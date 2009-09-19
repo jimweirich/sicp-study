@@ -1,3 +1,10 @@
+;; Exercise 1.11.  A function f is defined by the rule that f(n) = n
+;; if n<3 and f(n) = f(n - 1) + 2f(n - 2) + 3f(n - 3) if n> 3. Write a
+;; procedure that computes f by means of a recursive process. Write a
+;; procedure that computes f by means of an iterative process.
+
+;; First, the recursive version.
+
 (define (f1 n)
   (if (< n 3)
       n
@@ -5,38 +12,13 @@
          (* 2 (f1 (- n 2)))
          (* 3 (f1 (- n 3))) )))
 
+;; Now the iterative version.
+
 (define (f2 n)
-  (define (f2-aux i a1 a2 a3)
+  (define (iter i a1 a2 a3)
     (if (= n i)
         a1
-        (f2-aux (+ 1 i) (+ a1 (* 2 a2) (* 3 a3)) a1 a2)))
+        (iter (+ 1 i) (+ a1 (* 2 a2) (* 3 a3)) a1 a2)))
   (if (< n 3)
       n
-      (f2-aux 3 4 2 1)))
-
-
-;;; ------------------------------------------------------------------
-
-(let ((testing-file
-       (get-environment-variable "TESTING_SCM")))
-  (if testing-file
-      (begin
-        (load testing-file)
-
-        (test-case "Recursive Process"
-                    (assert-equal 1 (f1 1))
-                    (assert-equal 2 (f1 2))
-                    (assert-equal 4 (f1 3))
-                    (assert-equal 11 (f1 4))
-                    (assert-equal 25 (f1 5))
-                    (assert-equal 59 (f1 6)))
-        
-        (test-case "Iterative Process"
-                    (assert-equal 1 (f2 1))
-                    (assert-equal 2 (f2 2))
-                    (assert-equal 4 (f2 3))
-                    (assert-equal 11 (f2 4))
-                    (assert-equal 25 (f2 5))
-                    (assert-equal 59 (f2 6)))
-        
-        (tests))))
+      (iter 3 4 2 1)))

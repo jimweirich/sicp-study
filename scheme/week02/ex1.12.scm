@@ -1,3 +1,15 @@
+;; SICP 1.12
+
+;; Exercise 1.12 The following pattern of numbers is called Pascal's triangle.
+;;
+;; The numbers at the edge of the triangle are all 1, and each number
+;; inside the triangle is the sum of the two numbers above it.35 Write
+;; a procedure that computes elements of Pascal's triangle by means of
+;; a recursive process.
+
+;; ANSWER ------------------------------------------------------------
+
+;; Make the next row in the triangle from the current row.
 (define (make-row row)
   (define (make-short-row row)
     (cond ((null? row) ())
@@ -6,6 +18,7 @@
                       (make-short-row (cdr row))))))
   (cons 1 (make-short-row row)))
 
+;; Make a pascals triangle of 'n' rows.
 (define (pascal n)
   (define (pasc i prev)
     (cond ((zero? i) ())
@@ -13,27 +26,3 @@
                   (cons row (pasc (- i 1) row))))))
   (pasc n ()))
 
-;;; ------------------------------------------------------------------
-
-(let ((testing-file
-       (get-environment-variable "TESTING_SCM")))
-  (if testing-file
-      (begin
-        (load testing-file)
-
-        (test-case "Making Rows"
-                    (assert-equal '(1) (make-row ()))
-                    (assert-equal '(1 1) (make-row '(1)))
-                    (assert-equal '(1 4 6 4 1) (make-row '(1 3 3 1))))
-
-        (test-case "Pascal's Triangle"
-                   (assert-equal '((1)) (pascal 1))
-                   (assert-equal '((1) (1 1)) (pascal 2))
-                   (assert-equal '((1)
-                                   (1 1)
-                                   (1 2 1)
-                                   (1 3 3 1)
-                                   (1 4 6 4 1))
-                                 (pascal 5)))
-        
-        (tests))))

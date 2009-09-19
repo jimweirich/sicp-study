@@ -1,3 +1,10 @@
+;; SICP 1.9
+
+;; Exercise 1.9.  Each of the following two procedures defines a
+;; method for adding two positive integers in terms of the procedures
+;; inc, which increments its argument by 1, and dec, which decrements
+;; its argument by 1.
+
 (define (+ a b)
   (if (= a 0)
       b
@@ -15,6 +22,8 @@
 ;; (inc 8)
 ;; 9
 
+;; The first definintion is a recursive process.
+
 
 (define (+ a b)
   (if (= a 0)
@@ -27,3 +36,4 @@
 ;; (+ 0 9)
 ;; 9
 
+;; The second definintion is an iterate process.
