@@ -110,7 +110,7 @@
 ;; Report the results of a test run.
 (define (report-tests test-results)
   (define (show-one-failure failure)
-    (write-string "Test '")
+    (write-string ";Test '")
     (write-string (cadr failure))
     (write-string "' failed: ")
     (write-string (caddr failure))
@@ -123,6 +123,7 @@
 
   (define (show-test-results passing failing failures)
     (show-failures failures)
+    (write-string ";")
     (display passing)
     (write-string " passing tests, ")
     (display failing)
@@ -144,7 +145,9 @@
 ;;; Defining tests ---------------------------------------------------
 
 (define (record-test test-name procedure)
-  (set! *tests* (cons (list test-name procedure) *tests*))  )
+  (set! *tests*
+        (cons (list test-name procedure)
+              (del-assoc! test-name *tests*)))  )
 
 (define-syntax test-case
   (syntax-rules ()
