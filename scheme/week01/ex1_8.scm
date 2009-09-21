@@ -31,4 +31,3 @@
         (try (improve guess x))))
 
   (try 1.0))
-
