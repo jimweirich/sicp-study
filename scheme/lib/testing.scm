@@ -100,14 +100,14 @@
        (list 'pass test-name)))))
 
 ;; Run all the recorded tests.  Return a list of test results.
-(define (run-tests tests)
-  (define (run-remaining-tests al test-results)
+(define (execute-tests tests)
+  (define (execute-remaining-tests al test-results)
     (if (null? al)
         test-results
-        (run-remaining-tests (cdr al)
+        (execute-remaining-tests (cdr al)
                              (cons (run-a-test (caar al) (cadar al))
                                    test-results))))
-  (run-remaining-tests tests ()))
+  (execute-remaining-tests tests ()))
 
 ;; Report the results of a test run.
 (define (report-tests test-results)
@@ -144,6 +144,9 @@
 
   (report-remaining-tests test-results 0 0 ()))
 
+(define (run-tests tests)
+  (report-tests (execute-tests tests)))
+
 ;;; Defining tests ---------------------------------------------------
 
 (define (record-test test-name procedure)
@@ -167,29 +170,47 @@
             (else (loop (cdr tests) result))))
     (loop *tests* ())))
 
+(define (display-one-test test)
+  (write-string ";")
+  (write-string (car test))
+  (write-string "\n"))
+
 (define (display-tests tests)
   (cond ((null? tests)
          (write-string "\n")
          'done)
-        (else (write-string ";")
-              (write-string (caar tests))
-              (write-string "\n")
+        (else (display-one-test (car tests))
               (display-tests (cdr tests)))))
 
-;;; User Facing Code -------------------------------------------------
+(define (show-one-test test)
+  (display-one-test test)
+  (pp (cadr test))
+  (write-string "\n")
+  'done)
 
-(define (tests . args)
-  (if (null? args)
-      (report-tests (run-tests *tests*))
-      (report-tests (run-tests (tests-matching (car args))))))
+(define (show-tests tests)
+  (cond ((null? tests) 'done)
+        (else (show-one-test (car tests))
+              (show-tests (cdr tests)))))
+
+;;; User Facing Code -------------------------------------------------
 
 (define (clear-tests)
   (set! *tests* ())
   'ok)
 
-(define (list-tests . args)
+(define (do-tests proc args)
   (if (null? args)
-      (display-tests *tests*)
-      (display-tests (tests-matching (car args)))))
+      (proc *tests*)
+      (proc (tests-matching (car args)))))
+
+(define (tests . args)
+  (do-tests run-tests args))
+
+(define (list-tests . args)
+  (do-tests display-tests args))
+
+(define (show-tests . args)
+  (do-tests show-tests args))
 
 'done
