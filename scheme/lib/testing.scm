@@ -13,7 +13,21 @@
 
 ;;; Assertion messages -----------------------------------------------
 
-(define (expected-message expected actual)
+(define (expected-true-message actual)
+  (with-output-to-string
+    (lambda ()
+      (write-string "Expected: <")
+      (display actual)
+      (write-string "> to be true"))))
+
+(define (expected-false-message actual)
+  (with-output-to-string
+    (lambda ()
+      (write-string "Expected: <")
+      (display actual)
+      (write-string "> to be false"))))
+
+(define (equal-message expected actual)
   (with-output-to-string
     (lambda ()
       (write-string "Expected: <")
@@ -22,7 +36,7 @@
       (display actual)
       (write-string ">"))))
 
-(define (not-expected-message expected actual)
+(define (not-equal-message expected actual)
   (with-output-to-string
     (lambda ()
       (write-string "Expected: <")
@@ -31,7 +45,7 @@
       (display actual)
       (write-string ">"))))
 
-(define (delta-message expected actual delta)
+(define (equal-in-delta-message expected actual delta)
   (with-output-to-string
     (lambda ()
       (write-string "Expected the delta of <")
@@ -44,7 +58,7 @@
       (display (abs (- expected actual)))
       (write-string ">"))))
 
-(define (not-delta-message expected actual delta)
+(define (not-equal-in-delta-message expected actual delta)
   (with-output-to-string
     (lambda ()
       (write-string "Expected the delta of <")
@@ -64,29 +78,37 @@
       (*fail-test*  message)
       'test-ok))
 
+(define (assert-true actual)
+  (assert-with (lambda () actual)
+               (expected-true-message actual)))
+
+(define (assert-false actual)
+  (assert-with (lambda () (not actual))
+               (expected-false-message actual)))
+
 (define (assert-equal expected actual)
   (assert-with (lambda () (equal? expected actual))
-               (expected-message expected actual)) )
+               (equal-message expected actual)) )
 
 (define (assert-not-equal expected actual)
   (assert-with (lambda () (not (equal? expected actual)))
-               (not-expected-message expected actual)) )
+               (not-equal-message expected actual)) )
 
 (define (assert-eq expected actual)
   (assert-with (lambda () (eq? expected actual))
-               (expected-message expected actual)))
+               (equal-message expected actual)))
 
 (define (assert-not-eq expected actual)
   (assert-with (lambda () (not (eq? expected actual)))
-               (not-expected-message expected actual)))
+               (not-equal-message expected actual)))
 
 (define (assert-in-delta expected actual delta)
   (assert-with (lambda () (< (abs (- actual expected)) delta))
-               (delta-message expected actual delta)))
+               (equal-in-delta-message expected actual delta)))
 
 (define (assert-not-in-delta expected actual delta)
   (assert-with (lambda () (>= (abs (- actual expected)) delta))
-               (not-delta-message expected actual delta)))
+               (not-equal-in-delta-message expected actual delta)))
 
 ;;; Running Tests ----------------------------------------------------
 
