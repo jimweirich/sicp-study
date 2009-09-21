@@ -16,21 +16,21 @@
 (define (expected-true-message actual)
   (with-output-to-string
     (lambda ()
-      (write-string "Expected: <")
+      (write-string "Expected <")
       (display actual)
       (write-string "> to be true"))))
 
 (define (expected-false-message actual)
   (with-output-to-string
     (lambda ()
-      (write-string "Expected: <")
+      (write-string "Expected <")
       (display actual)
       (write-string "> to be false"))))
 
 (define (equal-message expected actual)
   (with-output-to-string
     (lambda ()
-      (write-string "Expected: <")
+      (write-string "Expected <")
       (display expected)
       (write-string "> but got <")
       (display actual)
@@ -39,7 +39,7 @@
 (define (not-equal-message expected actual)
   (with-output-to-string
     (lambda ()
-      (write-string "Expected: <")
+      (write-string "Expected <")
       (display expected)
       (write-string "> to not equal <")
       (display actual)
@@ -210,10 +210,10 @@
   (write-string "\n")
   'done)
 
-(define (show-tests tests)
+(define (show-the-tests tests)
   (cond ((null? tests) 'done)
         (else (show-one-test (car tests))
-              (show-tests (cdr tests)))))
+              (show-the-tests (cdr tests)))))
 
 ;;; User Facing Code -------------------------------------------------
 
@@ -233,6 +233,7 @@
   (do-tests display-tests args))
 
 (define (show-tests . args)
-  (do-tests show-tests args))
+  (do-tests show-the-tests args))
 
 'done
+
