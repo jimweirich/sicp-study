@@ -1,12 +1,11 @@
+;; SICP 1.12 tests
 
-(load (get-environment-variable "TESTING_SCM"))
-
-(test-case "Making Rows"
+(test-case "Ex 1.12 Making Rows"
            (assert-equal '(1) (make-row ()))
            (assert-equal '(1 1) (make-row '(1)))
            (assert-equal '(1 4 6 4 1) (make-row '(1 3 3 1))))
 
-(test-case "Pascal's Triangle"
+(test-case "Ex 1.12 Pascal's Triangle"
            (assert-equal '((1))
                          (pascal 1))
 
@@ -20,5 +19,3 @@
                            (1 3 3 1)
                            (1 4 6 4 1))
                          (pascal 5)))
-
-(tests)

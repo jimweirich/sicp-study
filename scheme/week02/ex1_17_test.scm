@@ -1,3 +1,5 @@
+;; SICP 1.17 tests
+
 (test-case "Ex 1.17 Fast Multiplying via addition"
            (assert-equal 0 (mult 0 3))
            (assert-equal 3 (mult 1 3))

@@ -1,3 +1,5 @@
+;; SICP 1.18 tests
+
 (test-case "Ex 1.18 Fast Multiplying via addition and iterative process"
            (assert-equal 0 (iterative-mult 0 3))
            (assert-equal 3 (iterative-mult 1 3))
