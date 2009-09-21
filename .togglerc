@@ -1,0 +1,6 @@
+
+(add-to-list 'toggle-mapping-styles
+             '(sicp . (("\\1_test.scm" . "\\1.scm")
+                       ("\\1_test.ss"  . "\\1.ss"))))
+
+(buffer-toggle-style 'sicp)
