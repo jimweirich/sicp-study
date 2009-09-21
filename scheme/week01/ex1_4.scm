@@ -12,16 +12,3 @@
 ;; ((if true + -) 2 3)       ;; Expand condition
 ;; (+ 2 3)                   ;; Substitute if
 ;; 5                         ;; Substitute the addition
-
-;;; ------------------------------------------------------------------
-
-(let ((testing-file
-       (get-environment-variable "TESTING_SCM")))
-  (if testing-file
-      (begin
-        (load testing-file)
-
-        (test-case "test result"
-                    (assert-equal 5 (a-plus-abs-b 2 3)))
-        
-        (tests))))
