@@ -1,5 +1,7 @@
 ;;; Very minimalistic testing framework for simple scheme programs.
 
+(load-option 'regular-expression)
+
 ;;; List of all recorded tests.
 (define *tests* ())
 
@@ -98,14 +100,14 @@
        (list 'pass test-name)))))
 
 ;; Run all the recorded tests.  Return a list of test results.
-(define (run-tests)
+(define (run-tests tests)
   (define (run-remaining-tests al test-results)
     (if (null? al)
         test-results
         (run-remaining-tests (cdr al)
                              (cons (run-a-test (caar al) (cadar al))
                                    test-results))))
-  (run-remaining-tests *tests* ()))
+  (run-remaining-tests tests ()))
 
 ;; Report the results of a test run.
 (define (report-tests test-results)
@@ -127,7 +129,7 @@
     (display passing)
     (write-string " passing tests, ")
     (display failing)
-    (write-string " failing tests.\n")
+    (write-string " failing tests.\n\n")
     'done)
 
   (define (report-remaining-tests test-results passing failing failures)
@@ -153,13 +155,41 @@
   (syntax-rules ()
     ((test-case name . code) (record-test name (lambda () . code)))))
 
+(define (tests-matching pattern)
+  (let ((re (string-append ".*" pattern)))
+    (define (match? string)
+      (re-string-match re string true))
+    (define (loop tests result)
+      (cond ((null? tests) (reverse result))
+            ((match? (caar tests))
+             (loop (cdr tests)
+                   (cons (car tests) result) ))
+            (else (loop (cdr tests) result))))
+    (loop *tests* ())))
+
+(define (display-tests tests)
+  (cond ((null? tests)
+         (write-string "\n")
+         'done)
+        (else (write-string ";")
+              (write-string (caar tests))
+              (write-string "\n")
+              (display-tests (cdr tests)))))
+
 ;;; User Facing Code -------------------------------------------------
 
-(define (tests)
-  (report-tests (run-tests)))
+(define (tests . args)
+  (if (null? args)
+      (report-tests (run-tests *tests*))
+      (report-tests (run-tests (tests-matching (car args))))))
 
 (define (clear-tests)
   (set! *tests* ())
   'ok)
+
+(define (list-tests . args)
+  (if (null? args)
+      (display-tests *tests*)
+      (display-tests (tests-matching (car args)))))
 
 'done
