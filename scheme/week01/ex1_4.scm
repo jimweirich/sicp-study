@@ -7,6 +7,8 @@
 (define (a-plus-abs-b a b)
   ((if (> b 0) + -) a b))
 
+;; ANSWER ------------------------------------------------------------
+
 ;; (a-plus-abs-b 2 3)
 ;; ((if (> 3 0) + -) 2 3)    ;; First expansion
 ;; ((if true + -) 2 3)       ;; Expand condition
