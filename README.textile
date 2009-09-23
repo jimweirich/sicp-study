@@ -6,7 +6,7 @@ h2. Coding Examples
 
 h3. Scheme Examples
 
-You will find the worked examples in Scheme in the scheme directory of this project.  Each week's work will be its own directory.  Examples will be named ex<em>m_n</em>.scm (where <em>m_n</em> is exercise number _m.n_).  The book_code.scm will contain any interesting code snippets from the book in the assigned reading for that week.
+You will find the worked examples in Scheme in the scheme directory of this project.  Each week's work will be its own directory.  Examples will be named ex<em>m_n</em>.scm (where <em>m_n</em> is exercise number <em>m.n</em>).  The book_code.scm will contain any interesting code snippets from the book in the assigned reading for that week.
 
 Have fun.
 
