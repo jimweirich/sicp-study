@@ -47,7 +47,7 @@
 (define (smallest-divisor n)
   (find-divisor n 2))
 
-(define (prime? n) (= n (smallest-divisor n)))
+(define (prime? n) (and (> n 1) (= n (smallest-divisor n))))
 
 ;; And some predicate testing helper functions.
 
