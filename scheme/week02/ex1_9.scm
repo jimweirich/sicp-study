@@ -36,4 +36,4 @@
 ;; (+ 0 9)
 ;; 9
 
-;; The second definintion is an iterate process.
+;; The second definintion is an iterative process.
