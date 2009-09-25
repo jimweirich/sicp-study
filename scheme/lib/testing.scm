@@ -123,13 +123,13 @@
 
 ;; Run all the recorded tests.  Return a list of test results.
 (define (execute-tests tests)
-  (define (execute-remaining-tests al test-results)
+  (define (loop al test-results)
     (if (null? al)
         test-results
-        (execute-remaining-tests (cdr al)
-                             (cons (run-a-test (caar al) (cadar al))
-                                   test-results))))
-  (execute-remaining-tests tests ()))
+        (loop (cdr al)
+              (cons (run-a-test (caar al) (cadar al))
+                    test-results))))
+  (loop tests ()))
 
 ;; Report the results of a test run.
 (define (report-tests test-results)
@@ -216,25 +216,31 @@
         (else (show-one-test (car tests))
               (show-the-tests (cdr tests)))))
 
-;;; User Facing Code -------------------------------------------------
-
-(define (clear-tests)
-  (set! *tests* ())
-  'ok)
-
-(define (do-tests proc args)
+(define (apply-to-tests proc args)
   (if (null? args)
       (proc *tests*)
       (proc (tests-matching (car args)))))
 
+;;; User Facing Code -------------------------------------------------
+
+;; Clear the list of recorded tests.
+(define (clear-tests)
+  (set! *tests* ())
+  'ok)
+
+;; Run the matching tests.  Run all tests if no pattern is given.
 (define (tests . args)
-  (do-tests run-tests args))
+  (apply-to-tests run-tests args))
 
+;; List the names of all the matching tests.  List all the tests if no
+;; pattern is given.
 (define (list-tests . args)
-  (do-tests display-tests args))
+  (apply-to-tests display-tests args))
 
+;; Show the name and code for the matching tests. Show all the tests
+;; if no pattern is given.
 (define (show-tests . args)
-  (do-tests show-the-tests args))
+  (apply-to-tests show-the-tests args))
 
 'done
 
