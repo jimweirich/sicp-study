@@ -174,7 +174,8 @@
 (define (record-test test-name procedure)
   (set! *tests*
         (cons (list test-name procedure)
-              (del-assoc! test-name *tests*)))  )
+              (del-assoc! test-name *tests*)))
+  test-name)
 
 (define-syntax test-case
   (syntax-rules ()
