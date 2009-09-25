@@ -48,11 +48,11 @@
 
 
 (define (r-cont-frac n d k)
-  (define (recur n d k i)
+  (define (recur i)
     (cond ((= k i) (/ (n i) (d i)))
           (else (/ (n i)
-                   (+ (d i) (recur n d k (+ i 1)))))))
-  (recur n d k 1))
+                   (+ (d i) (recur (+ i 1)))))))
+  (recur 1))
 
 ;; a. k=11 will return a result accurate to 4 decimal places
 (+ 0.0 (r-cont-frac (lambda (x) 1) (lambda (x) 1) 10))  ;; => .6179775280898876
