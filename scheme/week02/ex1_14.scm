@@ -89,3 +89,12 @@
 (+ 4 (cc -39 5))
 (+ 4 0)
 4
+
+;; Order of Growth:
+;;
+;; There is a good discussion of order of growth issues for this
+;; problem at: http://wiki.drewhess.com/wiki/SICP_exercise_1.14
+;;
+;; The upshot is that the space growth is theta(n) and the time
+;; (i.e. number of operations) growth is theta(n^5).  (or more
+;; generally, theta(n^c) where c is the number of coin denominations).
