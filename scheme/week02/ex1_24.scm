@@ -77,4 +77,4 @@
 
 ;; The growth ratio was expected to be around 2.  Instead it is around
 ;; 2.5 to 3.  I suspect that performance issues in dealing with these
-;; hugh numbers is what is slowing down the speed.
+;; huge numbers is what is slowing down the speed.
