@@ -20,7 +20,7 @@
 
 (define (f g) (g 2))
 
-;; Lets expand
+;; Let's expand
 
 ;; (f f)
 ;; (f 2)
