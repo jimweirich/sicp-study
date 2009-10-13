@@ -2,30 +2,40 @@
 
 (define denominations '(50 25 10 5 1))
 
+;; Recursive Version of make-change, Using a list of denominations.
+
 (define (make-change amount)
   (mc amount denominations))
 
 (define (mc amount denoms)
   (cond ((zero? amount) 1)
         ((null? denoms) 0)
-        (else (count2 amount 0 denoms))))
+        ((< amount 0) 0)
+        (else (+ (mc amount (cdr denoms))
+                 (mc (- amount (car denoms)) denoms)))))
 
-(define (count2 amount n denoms)
-  (cond ((> (* n (car denoms)) amount) 0)
-        (else (+ (count2 amount (+ n 1) denoms)
-                 (mc (- amount (* n (car denoms))) (cdr denoms))
-                 ))))
 
-;;; ------------------------------------------------------------------
+;; Iterative version of the above
 
-(let ((testing-file
-       (get-environment-variable "TESTING_SCM")))
-  (if testing-file
-      (begin
-        (load testing-file)
+(define (imake-change amount)
+  (imc amount denominations))
 
-        (test-case "Make Change"
-                    (assert-equal 1 (make-change 1))
-                    (assert-equal 292 (make-change 100)))
-        
-        (tests))))
+(define (imc amount denoms)
+  (define (loop result pending)
+    (cond ((null? pending) result)
+          (else
+           (let ((amt (caar pending))
+                 (den (cadar pending))
+                 (remaining (cdr pending)))
+             (cond ((zero? amt) (loop (+ 1 result) remaining))
+                   ((null? den) (loop result remaining))
+                   ((< amt 0) (loop result remaining))
+                   (else (loop result
+                               (cons (list amt (cdr den))
+                                     (cons (list (- amt (car den)) den)
+                                           remaining)))))))))
+  (loop 0
+        (list (list amount denoms))))
+
+
+
