@@ -14,7 +14,8 @@
            (= 4 (fast-exp 2 2))
            (= 32 (fast-exp 2 5))
            (= 256 (fast-exp 2 8))
-           (= 1024 (fast-exp 2 10)))
+           (= 1024 (fast-exp 2 10))
+           (= 2147483648 (fast-exp 2 31)))
       (list step 'ok)
       (list step 'failed)) )
 
